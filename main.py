@@ -8,3 +8,7 @@ def get_board_size():
             return int(n)
         else:
             print("🤨😑" + "\nIf you want to play give correct board size 🙂")
+
+current_player = 1 #1=B
+while True:
+    if move == make_move
