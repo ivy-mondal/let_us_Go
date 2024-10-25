@@ -1,7 +1,27 @@
 # Play by da rules ;)
+# board size
+def get_board_size():
+    while True:
+        n = input("Choose board size, 9,13 or 19:")
+        if n in ["9", "13", "19"]:
+            return int(n)
+        else:
+            print("🤨😑" + "\nIf you want to play give correct board size 🙂")
+
+
 # for switching
-def switch_player(current_player):  #1=B
-    return "2" if current_player == "1" else "1"
+def switch_player(current_player):  # 1=B
+    return 3 - current_player
+
+
+# get komi
+def get_komi(board_size):
+    if board_size == 9:
+        return 7.5
+    elif board_size == 13:
+        return 7.5
+    elif board_size == 19:
+        return 7.5
 
 
 # for occupying spot
@@ -13,5 +33,5 @@ def check_spot(board, row, col):
 
 # pass logic
 def pass_turn(player):
-    print(f"Player {player} has decided to embrace the void and pass their turn")
+    print(f"Player {player} has decided to embrace the void and paws their turn")
     return "pass"

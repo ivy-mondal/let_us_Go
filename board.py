@@ -1,13 +1,14 @@
 # Not so kawaii Go board
-from main import get_board_size
+from rules import get_board_size
 from rules import pass_turn
+from rules import get_komi
 
 
 class Board:
-    def __init__(self, komi):
+    def __init__(self):
         self.size = get_board_size()
-        self.komi = komi
-        self.current_player = "1"  #1 = B
+        self.komi = get_komi(self.size)
+        self.current_player = 1  # 1 = B
         self.consecutive_passes = 0
         self.board = [[' ' for i in range(self.size)] for _ in range(self.size)]
         self.history = []
@@ -20,6 +21,13 @@ class Board:
 
         return board_str
 
+    def handle_pass(self):
+        self.consecutive_passes += 1
+        return self.consecutive_passes == 2
+
+    def reset_pass(self):
+        self.consecutive_passes = 0
+
     def is_move_legal(self):
         pass
 
@@ -31,6 +39,3 @@ class Board:
                 return pass_turn(self.current_player)
             else:
                 self.consecutive_passes = 0
-
-
-
