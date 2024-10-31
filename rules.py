@@ -1,4 +1,7 @@
 # Play by da rules ;)
+import copy
+
+
 # board size
 def get_board_size():
     while True:
@@ -25,13 +28,29 @@ def get_komi(board_size):
 
 
 # for occupying spot
-def check_spot(board, row, col):
-    if 0 <= row < len(board) and 0 <= col < len(board[0]):
-        return board[row][col] == " "
-    return False
+def check_spot(board, move):
+    try:
+        row, col = map(int, move.split())
+        if 0 <= row < len(board) and 0 <= col < len(board[0]):
+            return board[row][col] == " "
+        else:
+            print("Check your coordinates and try again! 😭")
+            return False
+    except ValueError:
+        print("Please stick to correct format, only numbers allowed 🧐")
+        return False
 
 
 # pass logic
 def pass_turn(player):
-    print(f"Player {player} has decided to embrace the void and paws their turn")
+    print(f"Player {player} has decided to embrace the void and extend paws in their turn")
     return "pass"
+
+
+# Crystal ball for Go
+def simulate_move(board_matrix, move, current_player):
+    row, col = map(int, move.split())
+    current_matrix = copy.deepcopy(board_matrix)
+    if current_matrix[row][col] is None:
+        # logic is coming hold on
+        pass

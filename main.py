@@ -1,6 +1,6 @@
 # Get my beautiful beautiful board here :)
 from board import Board
-from rules import pass_turn
+from rules import pass_turn, simulate_move, check_spot
 from rules import switch_player
 
 
@@ -16,9 +16,16 @@ def main():
                 print("Both players have raised their paws, Game Ovah!")
                 break
         else:
-            board.reset_pass()
+            if check_spot(board, move):
+                future_board = simulate_move(board.matrix, move, current_player)
+                # move legal
+                # make move
+                # show board
+                board.reset_pass()
+                current_player = switch_player(current_player)
+            else:
+                continue
 
-        current_player = switch_player(current_player)
 
 
 main()
