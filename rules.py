@@ -10,11 +10,12 @@ def get_board_size():
             return int(n)
         else:
             print("🤨😑" + "\nIf you want to play give correct board size 🙂")
+            continue
 
 
 # for switching
-def switch_player(current_player):  # 1=B
-    return 3 - current_player
+def switch_player(current_player):
+    return "B" if current_player == "W" else "W"
 
 
 # get komi
@@ -31,8 +32,8 @@ def get_komi(board_size):
 def check_spot(board, move):
     try:
         row, col = map(int, move.split())
-        if 0 <= row < len(board) and 0 <= col < len(board[0]):
-            return board[row][col] == " "
+        if 0 <= row < board.size and 0 <= col < board.size:
+            return board.matrix[row][col] == " "
         else:
             print("Check your coordinates and try again! 😭")
             return False
@@ -51,6 +52,9 @@ def pass_turn(player):
 def simulate_move(board_matrix, move, current_player):
     row, col = map(int, move.split())
     current_matrix = copy.deepcopy(board_matrix)
-    if current_matrix[row][col] is None:
+    if current_matrix[row][col] == " ":
+        print("workin")
         # logic is coming hold on
         pass
+    else:
+        print("Uhhh......that spot is already taken 😥")
