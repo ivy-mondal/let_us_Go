@@ -48,13 +48,36 @@ def pass_turn(player):
     return "pass"
 
 
+# to find connected groups
+def find_groups(current_matrix, player_color):
+    visited = set()
+    groups = []
+    size = len(current_matrix)
+
+    def dfs(row, col):
+        if not (0 <= row < size and 0 <= col < size):
+            return
+        if (row, col) in visited or current_matrix[row][col] != player_color:
+            return
+        visited.add((row, col))
+        current_group.append((row, col))
+
+        directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+        for x, y in directions:
+            dfs(row + x, col + y)
+
+    for row in range(size):
+        for col in range(size):
+            if current_matrix[row][col] == player_color and (row, col) not in visited:
+                current_group = []
+                dfs(row, col)
+                if current_group:
+                    groups.append(current_group)
+    return groups
+
+
 # Crystal ball for Go
 def simulate_move(board_matrix, move, current_player):
     row, col = map(int, move.split())
     current_matrix = copy.deepcopy(board_matrix)
-    if current_matrix[row][col] == " ":
-        print("workin")
-        # logic is coming hold on
-        pass
-    else:
-        print("Uhhh......that spot is already taken 😥")
+    current_matrix[row][col] = current_player

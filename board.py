@@ -1,5 +1,5 @@
 # Not so kawaii Go board
-from rules import get_board_size, pass_turn, get_komi, check_spot, simulate_move, switch_player
+from rules import get_board_size, pass_turn, get_komi, check_spot, simulate_move
 
 
 class Board:
@@ -26,23 +26,15 @@ class Board:
     def reset_pass(self):
         self.consecutive_passes = 0
 
-    def is_move_legal(self):
-        pass
+    def is_game_over(self):
+        return self.handle_pass()
+
+    def is_move_legal(self, move):
+        if move.lower() == "pass":
+            return True
+        else:
+            if check_spot(self, move):
+                future_board = simulate_move(self.matrix, move, self.current_player)
 
     def make_move(self, move):
-        if move.lower() == "pass":
-            return self.handle_pass()
-            if self.handle_pass():
-                print("Both players have raised their paws, Game Ovah!")
-            else:
-                if check_spot(self, move):
-                    future_board = simulate_move(self.matrix, move, current_player)
-                    # move legal
-                    # make move
-                    # show board
-                    self.reset_pass()
-                    current_player = switch_player(current_player)
-
-
-
-
+        pass
